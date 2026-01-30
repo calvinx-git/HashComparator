@@ -1,10 +1,13 @@
-﻿#Calvin's script for comparing hashes V2
-#automatically pulls SHA256 hash values for a file and checks it against another file or manual input
+#Calvin's script for comparing hashes V2
+#automatically pulls SHA256 hash values for a file and checks it against another file or manual input.
 
 #May need to run following command to allow scripts to run
 #Get-ExecutionPolicy -list
 #Set-ExecutionPolicy RemoteSigned
 #Unblock-File -Path .\HashComparatorV2.ps1
+
+#include windows forms assembly
+Add-Type -AssemblyName System.Windows.Forms
 
 #prompt for first file to check hash
 $dialog = [System.Windows.Forms.OpenFileDialog]::new()
@@ -44,14 +47,18 @@ if ($result -eq [System.Windows.Forms.DialogResult]::Yes)
     $fileHash2 = Read-Host -Prompt "Input manual Hash info"
 }
 
+#report the hashes
+Write-Host "Hash1: " $fileHash1
+Write-Host "Hash2: " $fileHash2
+
 #checks if the hash values are equal
 if ($fileHash1 -eq $fileHash2)
 {
-    Echo "The hashes match"
+    Write-Host "The hashes match"
 }
 else
 {
-    Echo "The hashes do NOT match"
+    Write-Host "The hashes do NOT match"
 }
 
 #May need to run following command to return security settings to default
